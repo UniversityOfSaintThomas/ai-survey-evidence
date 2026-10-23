@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>St. Thomas AI Survey Evidence</title>
+<meta name="description" content="How University of St. Thomas students, faculty, and staff use and view generative AI: 2025 and 2026 survey evidence, with predictions to test and supports to try.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400&family=Libre+Franklin:wght@400;600;800&display=swap">
+<style>
+/* Layout: one reading column under a sticky bar. A purple hero carries the gold multiplication sign from the Access x Capability x Culture strategy. Each finding opens with a guess (gold diamond), then the answer: hollow = 2025, filled = 2026. Headings and figures in Libre Franklin; body in Carlito (Calibri metrics). */
+:root{
+  --paper:#F8F6FA; --surface:#FFFFFF; --tint:#EFE8F5; --track:#E7E0EF; --rule:#DCD3E6;
+  --ink:#24102F; --ink-2:#3F3549; --muted:#6B6175;
+  --purple:#510C76; --purple-ink:#510C76; --on-purple:#F7F5FA;
+  --gold:#F2C94C; --gold-ink:#7A5800; --on-gold:#1E1526;
+  --f-text:Calibri, Carlito, "Segoe UI", Arial, sans-serif;
+  --f-head:"Libre Franklin", "Franklin Gothic Medium", Arial, sans-serif;
+  --f-data:"Libre Franklin", "Franklin Gothic Medium", Arial, sans-serif;
+  --brand:#510C76; --brand-deep:#3A0857; --on-brand:#FCFBFE; --on-brand-2:#E6DAF0;
+  --measure:44rem;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#14101A; --surface:#1D1724; --tint:#261D30; --track:#2E2538; --rule:#3A3045;
+  --ink:#F1ECF6; --ink-2:#D2C8DC; --muted:#A99DB6;
+  --purple:#C9A3E6; --purple-ink:#D8BDF0; --on-purple:#14101A;
+  --gold:#F2C94C; --gold-ink:#F2C94C; --on-gold:#14101A; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#14101A; --surface:#1D1724; --tint:#261D30; --track:#2E2538; --rule:#3A3045;
+  --ink:#F1ECF6; --ink-2:#D2C8DC; --muted:#A99DB6;
+  --purple:#C9A3E6; --purple-ink:#D8BDF0; --on-purple:#14101A;
+  --gold:#F2C94C; --gold-ink:#F2C94C; --on-gold:#14101A; color-scheme:dark }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:5rem}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{transition:none!important; animation:none!important}}
+body{background:var(--paper); color:var(--ink); font-family:var(--f-text); font-size:1.15rem; line-height:1.55; -webkit-font-smoothing:antialiased}
+body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:10; background:var(--purple)}
+h1,h2,h3,h4{font-family:var(--f-head); line-height:1.1; text-wrap:balance; margin:0}
+p{margin:0}
+a{color:var(--purple-ink); text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--gold); outline-offset:3px; border-radius:2px}
+button,input,select{font:inherit; color:inherit}
+.num,.data{font-family:var(--f-data); font-variant-numeric:tabular-nums; font-weight:600}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.skip{position:absolute; left:1rem; top:-4rem; background:var(--gold); color:var(--on-gold); padding:.5rem 1rem; z-index:30; font-weight:600}
+.skip:focus{top:calc(env(safe-area-inset-top,0px) + .5rem)}
+.gut{padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px))}
+.wrap{max-width:68rem; margin:0 auto}
+
+/* Top bar */
+.bar{position:sticky; top:env(safe-area-inset-top,0px); z-index:20; background:var(--brand); color:var(--on-brand)}
+.bar .wrap{display:flex; align-items:center; gap:1rem; padding-block:.6rem; flex-wrap:wrap}
+.brand{font-family:var(--f-head); font-weight:800; margin-right:auto}
+.brand span{font-family:var(--f-text); font-weight:400; color:var(--on-brand-2); margin-left:.4rem}
+.bar nav ul{display:flex; gap:.25rem 1rem; list-style:none; margin:0; padding:0; flex-wrap:wrap}
+.bar nav a{color:var(--on-brand); text-decoration:none; font-size:.95rem}
+.bar nav a:hover{text-decoration:underline}
+.toggle{display:inline-flex; align-items:center; gap:.6rem; background:transparent; border:1.5px solid currentColor; color:var(--on-brand); border-radius:999px; padding:.3rem .8rem .3rem .4rem; cursor:pointer; font-size:.95rem}
+.toggle .sw{width:2.2rem; height:1.25rem; border-radius:999px; background:color-mix(in srgb, var(--on-brand) 25%, transparent); position:relative}
+.toggle .sw::after{content:""; position:absolute; top:.15rem; left:.15rem; width:.95rem; height:.95rem; border-radius:50%; background:var(--on-brand); transition:left .15s}
+.toggle[aria-pressed="true"] .sw{background:var(--gold)}
+.toggle[aria-pressed="true"] .sw::after{left:1.1rem; background:#24102F}
+.pcount{font-family:var(--f-data); font-size:.85rem}
+@media (max-width:760px){ .bar nav{display:none} }
+
+/* Hero */
+.hero{position:relative; overflow:hidden; background:var(--brand); color:var(--on-brand); padding-block:3.5rem 4rem}
+.hero::before,.hero::after{content:""; position:absolute; right:max(2rem, calc((100% - 68rem)/2 - 2rem)); top:50%; width:26rem; height:2.6rem; background:#F2C94C; transform-origin:center}
+.hero::before{transform:translateY(-50%) rotate(45deg)}
+.hero::after{transform:translateY(-50%) rotate(-45deg)}
+.hero .wrap{position:relative; z-index:1}
+.hero-text{max-width:46rem}
+.kicker{font-size:1.05rem; color:#F2C94C}
+.hero h1{font-size:clamp(2.3rem, 5.2vw, 4.2rem); font-weight:800; letter-spacing:-.02em; line-height:1.02; margin-top:.6rem}
+.hero .lede{color:var(--on-brand-2)}
+.hero .meta{color:var(--on-brand-2)}
+.hero a{color:var(--on-brand)}
+.lede{font-size:1.3rem; color:var(--ink-2); margin-top:1.1rem; max-width:var(--measure)}
+.meta{color:var(--muted); font-size:1rem; margin-top:1rem}
+.legend ul{list-style:none; padding:0; margin:.6rem 0 0; display:flex; flex-wrap:wrap; gap:.5rem 1.4rem}
+.legend li{display:flex; gap:.6rem; align-items:center; color:var(--ink-2)}
+.legend .meta{margin-top:.6rem}
+.mk{display:inline-block; flex:none; width:1rem; height:1rem; border-radius:50%}
+.mk.y25{border:3px solid var(--purple); background:var(--surface)}
+.mk.y26{background:var(--purple)}
+.mk.g{width:.95rem; height:.95rem; border-radius:1px; background:var(--gold); transform:rotate(45deg); outline:1.5px solid var(--on-gold); outline-offset:-1.5px}
+@media (max-width:1100px){ .hero::before,.hero::after{right:-6rem; width:20rem; height:2rem; opacity:.9} }
+@media (max-width:820px){ .hero::before,.hero::after{display:none} .brand span{display:none} }
+
+/* Samples band */
+.samples{background:var(--tint)}
+.band{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:2.5rem; padding-block:1.75rem}
+.bh{font-size:1.1rem; font-weight:800}
+.ns{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.25rem; margin:.6rem 0 0}
+.samples dt{font-family:var(--f-head); font-weight:800}
+.samples dd{margin:.2rem 0 0; color:var(--ink-2)}
+@media (max-width:860px){ .band{grid-template-columns:1fr; gap:1.5rem} }
+@media (max-width:520px){ .ns{grid-template-columns:1fr; gap:.7rem} }
+
+/* Parts and blocks */
+.part{padding-block:3rem 1rem}
+.part .num-l{color:var(--muted); font-size:1rem}
+.part h2{font-size:clamp(1.9rem, 3.4vw, 2.8rem); font-weight:800; letter-spacing:-.02em; margin-top:.3rem}
+.part p.desc{color:var(--ink-2); margin-top:.6rem; max-width:var(--measure)}
+.block{padding-block:2.5rem 3rem}
+.block+.block{border-top:1px solid var(--rule)}
+.block h2{font-size:clamp(1.4rem, 2.4vw, 1.85rem); font-weight:800}
+.src{display:inline-block; font-size:.85rem; color:var(--muted); margin-bottom:.5rem}
+.finding{max-width:var(--measure); margin-top:1rem; font-size:1.1rem}
+.finding b{font-family:var(--f-data); font-weight:600}
+.prose{max-width:var(--measure)}
+.prose p+p{margin-top:.8rem}
+
+/* Prediction */
+.pred{background:var(--surface); border:2px solid var(--purple); padding:1.4rem 1.5rem; margin-top:1.25rem; max-width:var(--measure); border-radius:10px}
+.pred .q{font-family:var(--f-head); font-size:1.25rem; font-weight:600; line-height:1.3}
+.pred .row{display:flex; align-items:center; gap:1rem; margin-top:1rem; flex-wrap:wrap}
+.pred label{font-weight:600}
+.pred input[type=range]{flex:1 1 14rem; accent-color:var(--purple); height:2rem; min-width:0}
+.pred output{font-family:var(--f-data); font-size:1.4rem; min-width:4.5ch; text-align:right}
+.pred .btns{display:flex; gap:.6rem; margin-top:1rem; flex-wrap:wrap}
+.btn{background:var(--purple); color:var(--on-purple); border:2px solid var(--purple); padding:.55rem 1.1rem; border-radius:6px; cursor:pointer; font-weight:600}
+.btn.quiet{background:transparent; color:var(--purple-ink)}
+.btn:hover{filter:brightness(1.08)}
+.result{margin-top:1rem}
+.result .scale{position:relative; height:2.4rem; margin:.4rem .5rem 0; border-bottom:2px solid var(--ink-2)}
+.result .scale .tk{position:absolute; bottom:-1.5rem; transform:translateX(-50%); font-family:var(--f-data); font-size:.8rem; color:var(--muted)}
+.result .scale .gm,.result .scale .am{position:absolute; bottom:.35rem; transform:translateX(-50%)}
+.result .scale .gm{width:1rem; height:1rem; background:var(--gold); transform:translateX(-50%) rotate(45deg); outline:1.5px solid var(--on-gold); outline-offset:-1.5px}
+.result .scale .am{width:1.1rem; height:1.1rem; border-radius:50%; background:var(--purple)}
+.result p.say{margin-top:2rem}
+.result p.say b{font-family:var(--f-data)}
+.lock{border:1px dashed var(--rule); padding:1rem 1.25rem; margin-top:1.25rem; color:var(--ink-2); max-width:var(--measure)}
+.done-tag{display:inline-block; margin-top:.75rem; font-size:.9rem; color:var(--muted)}
+
+/* Figures */
+figure{margin:1.75rem 0 0}
+figcaption .t{font-weight:800}
+figcaption .s{color:var(--muted); font-size:.95rem}
+.chart{margin-top:1rem}
+.db{display:grid; grid-template-columns:minmax(7rem,14rem) minmax(0,1fr) 9.5rem; gap:.5rem 1rem; align-items:center}
+.db .lab{font-weight:600; line-height:1.3}
+.db .lab small{display:block; font-weight:400; color:var(--muted); font-size:.85rem}
+.db .vals{font-family:var(--f-data); font-size:.95rem; text-align:right; white-space:nowrap}
+.db .vals b{font-weight:600}
+.trk{position:relative; height:2rem; background:
+  linear-gradient(90deg, var(--rule) 1px, transparent 1px) 0 0/25% 100%;}
+.trk::after{content:""; position:absolute; right:0; top:0; bottom:0; width:1px; background:var(--rule)}
+.trk .ln{position:absolute; top:calc(50% - 3px); height:6px; background:var(--track)}
+.trk .m{position:absolute; top:50%; width:1rem; height:1rem; border-radius:50%; transform:translate(-50%,-50%)}
+.trk .m.a{border:3px solid var(--purple); background:var(--surface)}
+.trk .m.b{background:var(--purple); box-shadow:0 0 0 2px var(--surface)}
+.trk .bar-f{position:absolute; left:0; top:calc(50% - .45rem); height:.9rem; background:var(--purple); border-radius:0 3px 3px 0}
+.axis{display:grid; grid-template-columns:minmax(7rem,14rem) minmax(0,1fr) 9.5rem; gap:1rem; margin-top:.3rem}
+.axis .sc{position:relative; height:1.2rem}
+.axis .sc span{position:absolute; transform:translateX(-50%); font-family:var(--f-data); font-size:.8rem; color:var(--muted)}
+.axis .sc span:first-child{transform:none} .axis .sc span:last-child{transform:translateX(-100%)}
+.sig{color:var(--purple-ink); font-weight:600}
+.note{font-size:.95rem; color:var(--muted); margin-top:.9rem; max-width:var(--measure)}
+.flag{border-left:4px solid var(--gold); background:var(--tint); padding:.7rem 1rem; margin-top:1rem; font-size:.97rem; max-width:var(--measure)}
+@media (max-width:640px){
+  .db,.axis{grid-template-columns:minmax(0,1fr) 7.5rem}
+  .db .lab{grid-column:1/-1; margin-top:.4rem}
+  .axis>span:first-child{display:none}
+}
+.seg{display:flex; gap:.4rem; flex-wrap:wrap; margin-top:1rem}
+.seg button{border:1.5px solid var(--purple); background:transparent; color:var(--purple-ink); padding:.35rem .9rem; border-radius:999px; cursor:pointer; font-weight:600}
+.seg button[aria-pressed="true"]{background:var(--purple); color:var(--on-purple)}
+details.tbl{margin-top:1rem}
+details.tbl summary{cursor:pointer; color:var(--purple-ink); font-weight:600}
+.tw{overflow-x:auto; margin-top:.6rem}
+table{border-collapse:collapse; font-size:.95rem; min-width:100%}
+th,td{padding:.45rem .6rem; border-bottom:1px solid var(--rule); text-align:left; vertical-align:top}
+td.r,th.r{text-align:right; font-family:var(--f-data)}
+thead th{color:var(--ink-2); font-weight:600}
+
+/* Connect panel */
+.connect{margin-top:2rem; display:grid; grid-template-columns:12rem minmax(0,1fr); gap:1.25rem; padding:1.4rem 1.5rem; background:var(--tint); border-radius:10px}
+.connect h3{font-size:1.05rem; font-weight:800}
+.connect .pill{display:inline-block; margin-top:.4rem; font-size:.85rem; font-weight:600; padding:.15rem .55rem; border-radius:3px; background:var(--tint); color:var(--purple-ink)}
+.connect ul{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1rem 1.5rem}
+.connect li b{display:block}
+.connect li span{color:var(--ink-2); font-size:.97rem}
+@media (max-width:640px){ .connect{grid-template-columns:1fr} }
+
+/* Side-by-side bars */
+.gb{display:grid; gap:1.4rem}
+.gb .meas{font-weight:600}
+.gb .rows{display:grid; grid-template-columns:6rem minmax(0,1fr) 4.5rem; gap:.25rem .75rem; align-items:center; margin-top:.4rem}
+.gb .rows span{font-size:.95rem; color:var(--ink-2)}
+.gb .rows .v{font-family:var(--f-data); text-align:right; color:var(--ink)}
+.cols3{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:2rem}
+.cols3 h3{font-size:1.25rem; font-weight:800; color:var(--purple-ink); padding-bottom:.4rem}
+.cols3 ol{list-style:none; padding:0; margin:.6rem 0 0; display:grid; gap:.7rem}
+.cols3 li .l{display:flex; justify-content:space-between; gap:.75rem}
+.cols3 li .l .v{font-family:var(--f-data)}
+.cols3 li .b{height:.55rem; background:var(--track); margin-top:.25rem}
+.cols3 li .b i{display:block; height:100%; background:var(--purple)}
+.cols3 .sub{font-size:.9rem; color:var(--muted); margin-top:.3rem}
+@media (max-width:820px){ .cols3{grid-template-columns:1fr} }
+
+/* Summary + next steps */
+.sumtbl td.diff{font-family:var(--f-data)}
+.next{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:2rem; margin-top:1.5rem}
+.next h3{font-size:1.3rem; font-weight:800}
+.next .def{color:var(--muted); font-size:.95rem; margin-top:.2rem}
+.next ul{list-style:none; padding:0; margin:1rem 0 0; display:grid; gap:1rem}
+.next li{padding-top:.8rem; border-top:1px solid var(--rule)}
+.next li b{display:block}
+.next li span{color:var(--ink-2); font-size:.97rem}
+@media (max-width:860px){ .next{grid-template-columns:1fr} }
+.yes{font-weight:600}
+.no{color:var(--muted)}
+.refs ol,.refs ul{padding-left:1.2rem; max-width:var(--measure)}
+.refs li{margin-top:.5rem}
+footer{border-top:1px solid var(--rule); color:var(--muted); font-size:.95rem}
+footer .wrap{padding-block:1.5rem 3rem; display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar gut">
+  <div class="wrap">
+    <p class="brand">St. Thomas AI Survey Evidence<span>from STELAR</span></p>
+    <nav aria-label="Sections"><ul>
+      <li><a href="#changed">2025 to 2026</a></li>
+      <li><a href="#side">2026 side by side</a></li>
+      <li><a href="#guesses">Your guesses</a></li>
+      <li><a href="#next">Next steps</a></li>
+      <li><a href="#methods">Methods</a></li>
+    </ul></nav>
+    <button type="button" class="toggle" id="predToggle" aria-pressed="true"><span class="sw" aria-hidden="true"></span><span>Predict first</span><span class="pcount" id="pcount" aria-hidden="true"></span><span class="sr-only">: hide each answer until you make a guess or choose to see it</span></button>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero gut" aria-labelledby="h-title">
+  <div class="wrap">
+    <div class="hero-text">
+      <p class="kicker">University of St. Thomas AI Surveys, 2025 and 2026</p>
+      <h1 id="h-title">How St. Thomas students, faculty, and staff use and view AI</h1>
+      <p class="lede">2,398 survey responses across two years. Each section asks you to guess a number first, then shows the answer and the university supports that respond to it.</p>
+      <p class="meta">Prepared by STELAR, October 2026. For more on students, see <a href="https://universityofsaintthomas.github.io/student-ai-evidence/">Students and AI at St. Thomas</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="samples gut" aria-label="Who responded and how to read the charts">
+  <div class="wrap band">
+    <div>
+      <h2 class="bh">Who responded</h2>
+      <dl class="ns">
+        <div><dt>Students</dt><dd><span class="num" data-n="stu25"></span> in 2025<br><span class="num" data-n="stu26"></span> in 2026</dd></div>
+        <div><dt>Faculty</dt><dd><span class="num" data-n="fac25"></span> in 2025<br><span class="num" data-n="fac26"></span> in 2026</dd></div>
+        <div><dt>Staff</dt><dd><span class="num" data-n="stf25"></span> in 2025<br><span class="num" data-n="stf26"></span> in 2026</dd></div>
+      </dl>
+    </div>
+    <div class="legend">
+      <h2 class="bh">How to read the charts</h2>
+      <ul>
+        <li><span class="mk g" aria-hidden="true"></span>Your guess</li>
+        <li><span class="mk y25" aria-hidden="true"></span>2025 survey (hollow circle)</li>
+        <li><span class="mk y26" aria-hidden="true"></span>2026 survey (filled circle)</li>
+      </ul>
+      <p class="meta">Every chart prints its values and has a table view. Guessing first makes surprising results easier to notice and remember (Brod, 2021).</p>
+    </div>
+  </div>
+</section>
+
+<!-- PART 1 -->
+<div class="part gut" id="changed" role="region" aria-labelledby="h-p1">
+  <div class="wrap">
+    <p class="num-l">Part 1 of 3</p>
+    <h2 id="h-p1">What changed in a year</h2>
+    <p class="desc">The same groups answered matched questions in 2025 and 2026. Where a question’s wording changed, the chart says so.</p>
+  </div>
+</div>
+
+<section class="block gut" id="use" aria-labelledby="h-use">
+  <div class="wrap">
+    <span class="src">Students, faculty, and staff, 2025 and 2026</span>
+    <h2 id="h-use">How often people use AI</h2>
+    <div data-pred="p-use"></div>
+    <div data-reveal="p-use">
+      <p class="finding">Weekly or more frequent use rose in all three groups. Staff went from <b>50.5%</b> to <b>60.2%</b>, students from <b>36.6%</b> to <b>50.3%</b>, and faculty from <b>33.1%</b> to <b>58.7%</b>. A third of staff now use AI daily.</p>
+      <figure>
+        <figcaption><p class="t">Use generative AI weekly or more</p><p class="s">Percent of respondents, 2025 and 2026. All three increases are statistically significant.</p></figcaption>
+        <div class="chart" id="ch-use"></div>
+      </figure>
+      <p class="flag"><b>Wording change for faculty.</b> In 2025 faculty answered separately for teaching and for research; the chart counts the more frequent of the two. Teaching alone was 26.3%. In 2026 the question asked about “primary academic or professional work,” so part of the faculty increase reflects the new wording.</p>
+      <details class="tbl"><summary>Full frequency breakdown as a table</summary><div class="tw" id="tb-use"></div></details>
+
+      <figure>
+        <figcaption><p class="t">Staff using AI weekly or more, by role</p><p class="s">Role groups with at least 20 respondents in a year. Descriptive; most role-level changes are within sampling error.</p></figcaption>
+        <div class="chart" id="ch-roles"></div>
+      </figure>
+
+      <div class="connect">
+        <div><h3>What helps</h3><span class="pill">Access</span></div>
+        <ul>
+          <li><b>Microsoft Copilot Chat</b><span>Sign in with your St. Thomas account. Approved for all four data classifications.</span></li>
+          <li><b>BoodleBox</b><span>Several AI models in one workspace, free for faculty and staff. Request an account in TDX.</span></li>
+          <li><b>Aquinas AI</b><span>St. Thomas’s own platform. Phase II pilot opens to faculty, staff, and students in November 2026.</span></li>
+          <li><b>Which tool for which data</b><span>See the <a href="#data-guide">data guide</a> before you paste anything in.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block gut" id="concerns" aria-labelledby="h-con">
+  <div class="wrap">
+    <span class="src">Students, faculty, and staff, 2025 and 2026</span>
+    <h2 id="h-con">What people worry about</h2>
+    <div data-pred="p-ct"></div>
+    <div data-reveal="p-ct">
+      <p class="finding">Concern about AI weakening critical thinking is at or near the top for every group. Among staff it rose from <b>83.7%</b> to <b>92.5%</b>. Concern about writing and reading skills and about energy use also grew, while concern about cheating and misinformation held steady or eased.</p>
+      <div class="seg" role="group" aria-label="Show concerns for">
+        <button type="button" data-g="stu" aria-pressed="false">Students</button>
+        <button type="button" data-g="fac" aria-pressed="false">Faculty</button>
+        <button type="button" data-g="stf" aria-pressed="true">Staff</button>
+      </div>
+      <figure>
+        <figcaption><p class="t" id="con-title">Concerned or very concerned</p><p class="s">Percent, 2025 and 2026, sorted by 2026. <span class="sig">*</span> marks a statistically significant change (p &lt; .05).</p></figcaption>
+        <div class="chart" id="ch-con" aria-live="polite"></div>
+      </figure>
+      <p class="flag"><b>Scale change.</b> The 2025 scale ran from strongly concerned to strongly unconcerned with a neutral midpoint; the 2026 scale ran from very concerned to not concerned. Both years are compared as the top two categories, following the published student analysis.</p>
+      <details class="tbl"><summary>All concerns for all groups as a table</summary><div class="tw" id="tb-con"></div></details>
+      <div class="connect">
+        <div><h3>What helps</h3><span class="pill">Capability and Culture</span></div>
+        <ul>
+          <li><b>AI Ethics badge</b><span>Self-paced in Canvas, open to faculty, staff, and learners.</span></li>
+          <li><b>CIC AI Ready: Cheating, Authorship, and Academic Trust</b><span>Free Zoom series, November 5, 12, and 19, 2026.</span></li>
+          <li><b>Magnifica Humanitas learning community</b><span>Faculty and staff reading Pope Leo’s encyclical on AI together.</span></li>
+          <li><b>AI Course Attribute</b><span>Courses labeled AI-Skills Intensive, AI-Skills Integrated, or AI-Free. <a href="https://one.stthomas.edu/sites/ai/SitePageModern/267909/ai-course-attribute">About the attribute</a></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block gut" id="support" aria-labelledby="h-sup">
+  <div class="wrap">
+    <span class="src">Faculty and staff, 2025 and 2026</span>
+    <h2 id="h-sup">How people rate university support</h2>
+    <div data-pred="p-train"></div>
+    <div data-reveal="p-train">
+      <p class="finding">In 2026, <b>36.7%</b> of faculty and <b>26.3%</b> of staff agree the university offers adequate AI training. Clear guidelines rate lowest of all: about one in four agree. Faculty views of guidelines and paid subscriptions improved; staff views held flat.</p>
+      <div class="seg" role="group" aria-label="Show support ratings for">
+        <button type="button" data-s="fac" aria-pressed="true">Faculty</button>
+        <button type="button" data-s="stf" aria-pressed="false">Staff</button>
+      </div>
+      <figure>
+        <figcaption><p class="t" id="sup-title">Agree or strongly agree that the university…</p><p class="s">Percent, 2025 and 2026. <span class="sig">*</span> marks a statistically significant change.</p></figcaption>
+        <div class="chart" id="ch-sup" aria-live="polite"></div>
+      </figure>
+      <p class="flag"><b>Read the training row with care.</b> The 2026 item added the word “adequate,” which sets a higher bar. In the same year, staff naming lack of training as a challenge fell from 60.9% to 43.0%. The 2025 staff items also offered “don’t know” (11% to 27% chose it); those answers are left out here.</p>
+
+      <figure>
+        <figcaption><p class="t">Challenges staff named</p><p class="s">Percent of staff selecting each, 2025 (n = <span class="num" id="n-ch25"></span>) and 2026 (n = <span class="num" id="n-ch26"></span>).</p></figcaption>
+        <div class="chart" id="ch-chal"></div>
+      </figure>
+
+      <figure>
+        <figcaption><p class="t">Very or extremely aware of the university’s AI initiatives</p><p class="s">Percent. Faculty awareness rose; staff awareness fell. Both changes are statistically significant.</p></figcaption>
+        <div class="chart" id="ch-aware"></div>
+      </figure>
+      <div class="connect">
+        <div><h3>What helps</h3><span class="pill">Capability</span></div>
+        <ul>
+          <li><b>AI badges in Canvas</b><span>Getting Started with Generative AI and AI Ethics now; AI Applications launches November 2026.</span></li>
+          <li><b>CIC AI Ready webinars</b><span>Free on Zoom, the first three Thursdays of each month, 1 to 2 pm. Recordings available.</span></li>
+          <li><b>STELAR workshops and consultations</b><span>One-on-one help with BoodleBox and course tools. <a href="https://one.stthomas.edu/sites/its/stelar/news/269124/stelar-fall-learning-opportunities">Fall learning opportunities</a></span></li>
+          <li><b>Google AI Career Certificates</b><span>500 licenses for students, faculty, and staff through CIC AI Ready and Coursera.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PART 2 -->
+<div class="part gut" id="side" role="region" aria-labelledby="h-p2">
+  <div class="wrap">
+    <p class="num-l">Part 2 of 3</p>
+    <h2 id="h-p2">Students, faculty, and staff side by side in 2026</h2>
+    <p class="desc">The 2026 surveys asked all three groups the same core questions. Group differences here are descriptive.</p>
+  </div>
+</div>
+
+<section class="block gut" id="confidence" aria-labelledby="h-conf">
+  <div class="wrap">
+    <span class="src">2026 AI Surveys</span>
+    <h2 id="h-conf">Confidence, use, and whether AI belongs in the work</h2>
+    <div data-pred="p-conf"></div>
+    <div data-reveal="p-conf">
+      <p class="finding"><b>62.5%</b> of students feel confident using AI effectively and responsibly, more than faculty (<b>43.7%</b>) or staff (<b>45.6%</b>). Yet students are the least likely to say AI is an appropriate tool for their work (<b>42.3%</b>).</p>
+      <figure>
+        <figcaption><p class="t">Five measures across three groups</p><p class="s">Percent, 2026. Students n = <span class="num" data-n="stu26"></span>, faculty n = <span class="num" data-n="fac26"></span>, staff n = <span class="num" data-n="stf26"></span>.</p></figcaption>
+        <div class="chart gb" id="ch-side"></div>
+      </figure>
+      <details class="tbl"><summary>These measures as a table</summary><div class="tw" id="tb-side"></div></details>
+      <div class="connect">
+        <div><h3>What helps</h3><span class="pill">Culture</span></div>
+        <ul>
+          <li><b>AI Practitioners Group</b><span>Monthly, in person: third Thursdays, 10 am to noon, STELAR Classroom (OSF Library LL21). Bring what you tried, including what did not work.</span></li>
+          <li><b>Faculty learning communities</b><span>AI for Teaching, Learning, and Research, and Magnifica Humanitas.</span></li>
+          <li><b>Nexus AI Club</b><span>Student-run sessions on how AI works and how to use it well.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block gut" id="asks" aria-labelledby="h-asks">
+  <div class="wrap">
+    <span class="src">2026 AI Surveys</span>
+    <h2 id="h-asks">What people ask the university for</h2>
+    <div data-pred="p-guide"></div>
+    <div data-reveal="p-guide">
+      <p class="finding">Clearer guidelines is the first request in every group: <b>55.8%</b> of staff, <b>47.4%</b> of faculty, and <b>60.4%</b> of students, who ranked it first or second of seven options. Access to paid tools and training follow.</p>
+      <figure>
+        <figcaption><p class="t">Most requested supports</p><p class="s">Students ranked seven options (share placing each first or second, n = <span class="num" id="n-rank"></span>). Faculty (n = <span class="num" id="n-rf"></span>) and staff (n = <span class="num" id="n-rs"></span>) selected all that apply.</p></figcaption>
+        <div class="chart cols3" id="ch-asks"></div>
+      </figure>
+      <div class="connect">
+        <div><h3>What helps</h3><span class="pill">Access, Capability, Culture</span></div>
+        <ul>
+          <li><b>Guidelines</b><span>The <a href="#data-guide">data guide</a>, the Institute for AI for the Common Good’s policies and AI Literacy Framework, and the AI Course Attribute.</span></li>
+          <li><b>Tools</b><span>Copilot Chat for everyone; BoodleBox free for faculty and staff; Aquinas AI from November.</span></li>
+          <li><b>Training</b><span>Badges, CIC AI Ready webinars, and STELAR workshops.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block gut" id="time" aria-labelledby="h-time">
+  <div class="wrap">
+    <span class="src">2026 Faculty and Staff AI Surveys</span>
+    <h2 id="h-time">Time saved, and who is building</h2>
+    <div data-pred="p-time"></div>
+    <div data-reveal="p-time">
+      <p class="finding"><b>53.9%</b> of staff say AI has saved them time on balance; <b>6.1%</b> say it cost time. Faculty are more mixed: <b>46.6%</b> saved, <b>20.2%</b> cost. About one in five faculty and one in seven staff have built their own AI assistant, and about a third of each group would like to.</p>
+      <figure>
+        <figcaption><p class="t">Effect of AI on weekly workload</p><p class="s">Percent. “Too early to tell” not shown.</p></figcaption>
+        <div class="chart" id="ch-time"></div>
+      </figure>
+      <figure>
+        <figcaption><p class="t">Built a custom AI assistant (a Custom GPT, Claude Project, Gemini Gem, or BoodleBox bot)</p><p class="s">Percent.</p></figcaption>
+        <div class="chart" id="ch-build"></div>
+      </figure>
+      <figure>
+        <figcaption><p class="t">AI tools in use</p><p class="s">Percent of each group’s respondents to the item. The staff survey had no “none” option, so staff shares are of those who chose at least one tool.</p></figcaption>
+        <div class="tw" id="tb-tools"></div>
+      </figure>
+      <div class="connect">
+        <div><h3>What helps</h3><span class="pill">Culture and Capability</span></div>
+        <ul>
+          <li><b>Build with help</b><span>STELAR consultations on building BoodleBox bots and course assistants.</span></li>
+          <li><b>Share what saves time</b><span>Demo a workflow at the AI Practitioners Group.</span></li>
+          <li><b>Tommie Toolkit</b><span>University-built AI tools in Canvas for faculty and staff, with a “Submit an idea” link.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PART 3 -->
+<div class="part gut" id="part3" role="region" aria-labelledby="h-p3">
+  <div class="wrap">
+    <p class="num-l">Part 3 of 3</p>
+    <h2 id="h-p3">Your guesses and next steps</h2>
+  </div>
+</div>
+
+<section class="block gut" id="guesses" aria-labelledby="h-g">
+  <div class="wrap">
+    <h2 id="h-g">How your guesses compared</h2>
+    <p class="prose" id="g-summary" style="margin-top:.8rem">Make a guess in any section and it appears here. Guesses stay in this browser only.</p>
+    <div class="tw"><table class="sumtbl" id="g-table"><thead><tr><th scope="col">Question</th><th scope="col" class="r">Your guess</th><th scope="col" class="r">Survey result</th><th scope="col" class="r">Difference</th></tr></thead><tbody></tbody></table></div>
+    <div class="btns" style="margin-top:1rem;display:flex;gap:.6rem;flex-wrap:wrap"><button type="button" class="btn quiet" id="g-reset">Clear my guesses</button></div>
+  </div>
+</section>
+
+<section class="block gut" id="next" aria-labelledby="h-next">
+  <div class="wrap">
+    <h2 id="h-next">Find your next step</h2>
+    <p class="prose" style="margin-top:.8rem">St. Thomas organizes its AI work around one idea: AI Enablement = Access × Capability × Culture. The factors multiply, so a gap in any one limits the whole.</p>
+    <div class="next">
+      <div>
+        <h3>Access</h3><p class="def">Secure, supported AI tools in people’s hands</p>
+        <ul>
+          <li><b>Microsoft Copilot Chat</b><span>Your St. Thomas login</span></li>
+          <li><b>BoodleBox</b><span>Free for faculty and staff; request in TDX</span></li>
+          <li><b>ChatGPT Business and Claude Team</b><span>Licensed through departments and units</span></li>
+          <li><b>Aquinas AI</b><span>Phase II pilot November 2026; everyone in 2027</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Capability</h3><p class="def">Skills and practice through training, badges, and support</p>
+        <ul>
+          <li><b>AI badges</b><span>Getting Started, AI Ethics, AI Applications</span></li>
+          <li><b>CIC AI Ready</b><span>Free monthly webinars; Google AI Career Certificates</span></li>
+          <li><b>STELAR</b><span>Workshops and one-on-one consultations</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Culture</h3><p class="def">Trust and room to experiment, build, and fail</p>
+        <ul>
+          <li><b>AI Practitioners Group</b><span>Third Thursdays, 10 am to noon, STELAR Classroom</span></li>
+          <li><b>Learning communities</b><span>AI for Teaching, Learning, and Research; Magnifica Humanitas</span></li>
+          <li><b>Institute for AI for the Common Good</b><span>Working groups open to faculty and staff</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <figure id="data-guide">
+      <figcaption><p class="t">Which tool for which data</p><p class="s">From the St. Thomas AI tools and data use guide. Even in an approved tool, remove or de-identify data the task does not need.</p></figcaption>
+      <div class="tw"><table>
+        <thead><tr><th scope="col">Tool</th><th scope="col">Green</th><th scope="col">Yellow</th><th scope="col">Orange</th><th scope="col">Red</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Personal or consumer accounts (ChatGPT, Claude, Gemini)</th><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><th scope="row">Aquinas AI</th><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><th scope="row">BoodleBox</th><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td></tr>
+          <tr><th scope="row">ChatGPT Business</th><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td></tr>
+          <tr><th scope="row">Claude Team</th><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td></tr>
+          <tr><th scope="row">Microsoft Copilot</th><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+          <tr><th scope="row">Examples</th><td>Press releases, campus maps, athletic results</td><td>Internal procedures, memos, business email, unpublished research</td><td>FERPA data, employee records, donor history, contracts</td><td>SSNs, payment cards, protected health information, identifiable human subject data</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Full policy: <a href="https://www.stthomas.edu/about/departments/general-counsel/policy-pdfs/data-security-classification-policy.pdf">Data Security Classification Policy</a>.</p>
+    </figure>
+  </div>
+</section>
+
+<section class="block gut refs" id="methods" aria-labelledby="h-m">
+  <div class="wrap">
+    <h2 id="h-m">Sources and methods</h2>
+    <h3 style="margin-top:1.25rem">Data</h3>
+    <ul>
+      <li>St. Thomas Student AI Survey, 2025 (<span data-n="stu25"></span> valid responses) and 2026 (<span data-n="stu26"></span>).</li>
+      <li>St. Thomas Faculty AI Survey, 2025 (<span data-n="fac25"></span>) and 2026 (<span data-n="fac26"></span>).</li>
+      <li>St. Thomas Staff AI Survey, 2025 (<span data-n="stf25"></span>) and 2026 (<span data-n="stf26"></span>).</li>
+    </ul>
+    <h3 style="margin-top:1.25rem">Methods notes</h3>
+    <ul>
+      <li>Respondents who answered fewer than half of the non-demographic questions were excluded, matching the published student analysis. Item-level n varies with nonresponse; percentages use those who answered each item.</li>
+      <li>Year-over-year changes were tested with two-proportion z-tests (alpha .05, no correction for multiple comparisons). Group differences in 2026 are descriptive.</li>
+      <li>Wording and scale changes: the faculty use question (teaching and research in 2025, primary work in 2026); concern scales (bipolar in 2025, unipolar in 2026, compared as the top two categories); the training item (“adequate” added in 2026); staff “don’t know” options in 2025 support items (excluded); the middle label of the staff awareness scale.</li>
+      <li>Staff role groups are self-reported. Groups with fewer than 20 respondents in a year are not shown.</li>
+      <li>All surveys are voluntary self-report and may not represent everyone in each group.</li>
+    </ul>
+    <h3 style="margin-top:1.25rem">References</h3>
+    <ul>
+      <li>Brod, G. (2021). Generative learning: Which strategies for what age? <i>Educational Psychology Review, 33</i>, 1295–1318.</li>
+      <li>Knezek, G., Christensen, R., &amp; Fluke, R. (2003). Testing a will, skill, tool model of technology integration.</li>
+      <li>STELAR. <a href="https://universityofsaintthomas.github.io/student-ai-evidence/">Students and AI at St. Thomas</a>: student survey evidence and course design tools.</li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer class="gut"><div class="wrap"><span>Prepared by STELAR, University of St. Thomas, October 2026</span><span>Contact: Jonathan Keiser, keis2759@stthomas.edu</span></div></footer>
+
+<script>
+const DATA = {"n":{"stu25":310,"stu26":925,"fac25":281,"fac26":254,"stf25":281,"stf26":347},"freq":{"stu25":{"n":309,"dist":{"daily":12.3,"weekly":24.3,"monthly":23.3,"rarely":17.2,"never":23.0},"weekly_plus":36.6,"never":23.0},"stu26":{"n":921,"dist":{"daily":16.5,"weekly":33.8,"monthly":12.6,"rarely":16.5,"never":20.6},"weekly_plus":50.3,"never":20.6},"fac25":{"n":281,"dist":{"daily":6.0,"weekly":20.3,"monthly":29.9,"rarely":0.0,"never":43.8},"weekly_plus":26.3,"never":43.8},"fac26":{"n":254,"dist":{"daily":28.3,"weekly":30.3,"monthly":8.3,"rarely":17.3,"never":15.7},"weekly_plus":58.7,"never":15.7},"stf25":{"n":273,"dist":{"daily":21.2,"weekly":29.3,"monthly":15.0,"rarely":17.9,"never":16.5},"weekly_plus":50.5,"never":16.5},"stf26":{"n":347,"dist":{"daily":32.9,"weekly":27.4,"monthly":7.8,"rarely":17.0,"never":15.0},"weekly_plus":60.2,"never":15.0},"fac25_any":{"n":281,"weekly_plus":33.1,"never":33.5}},"freq_p":{"stu":0.0,"fac":0.0,"stf":0.0157},"staff_roles":{"Other":{"2025":{"n":21,"pct":38.1},"2026":{"n":32,"pct":56.2}},"Student Support Services Staff":{"2025":{"n":47,"pct":53.2},"2026":{"n":59,"pct":47.5}},"Information Technology Services/Technical Staff":{"2025":{"n":41,"pct":61.0},"2026":{"n":57,"pct":71.9}},"Administrative/Operational Staff":{"2025":{"n":131,"pct":48.1},"2026":{"n":156,"pct":59.6}},"Administrative/Academic/Operational Leaders":{"2025":{"n":25,"pct":60.0},"2026":{"n":19,"pct":89.5}},"Financial Staff":{"2025":{"n":8,"pct":25.0},"2026":{"n":11,"pct":54.5}}},"concern":{"dishonesty":{"stu25":{"pct":79.0,"n":309},"stu26":{"pct":74.7,"n":924},"fac25":{"pct":87.5,"n":279},"fac26":{"pct":86.2,"n":254},"stf25":{"pct":83.0,"n":265},"stf26":{"pct":81.8,"n":347},"stu_p":0.1267,"fac_p":0.657,"stf_p":0.6998},"misinformation":{"stu25":{"pct":85.8,"n":309},"stu26":{"pct":80.6,"n":921},"fac25":{"pct":91.4,"n":279},"fac26":{"pct":88.6,"n":254},"stf25":{"pct":92.1,"n":278},"stf26":{"pct":91.6,"n":347},"stu_p":0.0399,"fac_p":0.2804,"stf_p":0.8207},"bias":{"stu25":{"pct":64.1,"n":309},"stu26":{"pct":60.5,"n":924},"fac25":{"pct":80.6,"n":279},"fac26":{"pct":73.2,"n":254},"stf25":{"pct":80.8,"n":276},"stf26":{"pct":81.6,"n":347},"stu_p":0.2605,"fac_p":0.0424,"stf_p":0.7994},"ip":{"stu25":{"pct":67.2,"n":308},"stu26":{"pct":64.6,"n":925},"fac25":{"pct":78.1,"n":278},"fac26":{"pct":75.2,"n":254},"stf25":{"pct":80.7,"n":274},"stf26":{"pct":78.6,"n":346},"stu_p":0.4065,"fac_p":0.4292,"stf_p":0.5199},"critical_thinking":{"stu25":{"pct":87.0,"n":308},"stu26":{"pct":87.0,"n":925},"fac25":{"pct":89.5,"n":277},"fac26":{"pct":93.7,"n":253},"stf25":{"pct":83.7,"n":276},"stf26":{"pct":92.5,"n":345},"stu_p":1.0,"fac_p":0.0832,"stf_p":0.0006},"reading":{"stu25":{"pct":76.9,"n":308},"stu26":{"pct":77.9,"n":925},"fac25":{"pct":77.1,"n":279},"fac26":{"pct":85.4,"n":253},"stf25":{"pct":67.3,"n":275},"stf26":{"pct":83.7,"n":344},"stu_p":0.7152,"fac_p":0.0147,"stf_p":0.0},"writing":{"stu25":{"pct":83.1,"n":308},"stu26":{"pct":83.8,"n":925},"fac25":{"pct":84.9,"n":279},"fac26":{"pct":93.7,"n":253},"stf25":{"pct":80.8,"n":276},"stf26":{"pct":89.6,"n":345},"stu_p":0.7737,"fac_p":0.0012,"stf_p":0.0019},"originality":{"stu25":{"pct":57.5,"n":308},"fac25":{"pct":81.4,"n":279},"fac26":{"pct":84.3,"n":254},"stf25":{"pct":80.7,"n":274},"stf26":{"pct":81.8,"n":347},"fac_p":0.3758,"stf_p":0.727},"jobs":{"stu25":{"pct":68.2,"n":308},"stu26":{"pct":69.9,"n":920},"fac25":{"pct":47.3,"n":279},"fac26":{"pct":60.3,"n":252},"stf25":{"pct":57.9,"n":271},"stf26":{"pct":65.6,"n":346},"stu_p":0.575,"fac_p":0.0027,"stf_p":0.0503},"privacy":{"stu25":{"pct":73.4,"n":308},"stu26":{"pct":67.2,"n":922},"fac25":{"pct":78.9,"n":279},"fac26":{"pct":79.5,"n":254},"stf25":{"pct":83.2,"n":273},"stf26":{"pct":83.3,"n":347},"stu_p":0.0421,"fac_p":0.8647,"stf_p":0.9736},"policies":{"stu25":{"pct":58.4,"n":308},"stu26":{"pct":56.6,"n":924},"fac25":{"pct":69.1,"n":278},"fac26":{"pct":60.5,"n":253},"stf25":{"pct":68.3,"n":268},"stf26":{"pct":68.8,"n":346},"stu_p":0.5805,"fac_p":0.038,"stf_p":0.8947},"energy":{"stu25":{"pct":57.1,"n":308},"stu26":{"pct":68.6,"n":925},"fac25":{"pct":62.7,"n":279},"fac26":{"pct":74.8,"n":254},"stf25":{"pct":68.0,"n":269},"stf26":{"pct":78.5,"n":344},"stu_p":0.0002,"fac_p":0.0027,"stf_p":0.0033},"equity":{"fac26":{"pct":57.1,"n":252}},"student_literacy":{"fac26":{"pct":47.6,"n":254}}},"support":{"clear_guidelines":{"fac25":{"pct":15.6,"n":275},"fac26":{"pct":25.3,"n":245},"stf25":{"pct":22.4,"n":245,"dont_know":12.5,"pct_incl_dk":19.6},"stf26":{"pct":22.8,"n":342},"stu26":{"pct":39.7,"n":922},"fac_p":0.0059,"stf_p":0.9091},"training":{"fac25":{"pct":62.5,"n":275},"fac26":{"pct":36.7,"n":245},"stf25":{"pct":50.8,"n":250,"dont_know":11.0,"pct_incl_dk":45.2},"stf26":{"pct":26.3,"n":342},"stu26":{"pct":24.2,"n":920},"fac_p":0.0,"stf_p":0.0},"tech_support":{"fac25":{"pct":40.7,"n":273},"fac26":{"pct":29.9,"n":244},"stf25":{"pct":24.9,"n":241,"dont_know":14.2,"pct_incl_dk":21.4},"stf26":{"pct":21.1,"n":341},"stu26":{"pct":26.4,"n":917},"fac_p":0.0105,"stf_p":0.2809},"updates_policies":{"fac25":{"pct":18.9,"n":275},"fac26":{"pct":23.1,"n":242},"stf25":{"pct":23.1,"n":212,"dont_know":24.6,"pct_incl_dk":17.4},"stf26":{"pct":18.4,"n":342},"fac_p":0.2409,"stf_p":0.1805},"pays_subscriptions":{"fac25":{"pct":21.2,"n":274},"fac26":{"pct":32.9,"n":243},"stf25":{"pct":43.4,"n":205,"dont_know":26.8,"pct_incl_dk":31.8},"stf26":{"pct":36.5,"n":340},"fac_p":0.0027,"stf_p":0.1098},"incentivizes":{"fac25":{"pct":28.0,"n":275},"fac26":{"pct":33.1,"n":242},"stf25":{"pct":26.8,"n":235,"dont_know":16.4,"pct_incl_dk":22.4},"stf26":{"pct":25.2,"n":341},"fac_p":0.2084,"stf_p":0.6664},"discipline_support":{"fac25":{"pct":14.5,"n":275},"fac26":{"pct":16.2,"n":240},"fac_p":0.5928}},"aware":{"fac25":{"very_extreme":16.6,"not_at_all":9.7,"n":277},"fac26":{"very_extreme":23.9,"not_at_all":7.7,"n":247},"stf25":{"very_extreme":22.1,"not_at_all":6.8,"n":281},"stf26":{"very_extreme":15.2,"not_at_all":12.9,"n":342}},"aware_p":{"fac":0.0372,"stf":0.0267},"agree":{"aware_positive":{"fac25":{"pct":72.5,"n":280},"fac26":{"pct":70.5,"n":254},"stf25":{"pct":80.1,"n":277},"stf26":{"pct":78.7,"n":347},"stu26":{"pct":72.6,"n":925}},"aware_negative":{"fac25":{"pct":93.2,"n":280},"fac26":{"pct":97.6,"n":254},"stf25":{"pct":85.7,"n":279},"stf26":{"pct":95.7,"n":347},"stu26":{"pct":94.7,"n":924}},"appropriate_tool":{"fac25":{"pct":54.6,"n":280},"fac26":{"pct":52.4,"n":254},"stf25":{"pct":68.4,"n":272},"stf26":{"pct":62.6,"n":345},"stu26":{"pct":42.3,"n":923}},"may_replace":{"fac25":{"pct":50.7,"n":280},"fac26":{"pct":46.9,"n":254},"stf25":{"pct":55.6,"n":266},"stf26":{"pct":55.0,"n":347}},"role_in_decisions":{"fac25":{"pct":93.2,"n":280},"fac26":{"pct":91.7,"n":254},"stf26":{"pct":87.9,"n":346}},"prepared_discuss":{"fac25":{"pct":55.7,"n":280},"fac26":{"pct":66.4,"n":253}},"baseline_literacy":{"fac26":{"pct":72.0,"n":254},"stf26":{"pct":80.4,"n":347}}},"confidence":{"stu26":{"conf_plus":62.5,"low":12.7,"n":921},"fac26":{"conf_plus":43.7,"low":26.5,"n":245},"stf26":{"conf_plus":45.6,"low":25.7,"n":342}},"workload":{"fac26":{"saved":46.6,"cost":20.2,"no_effect":27.7,"n":253},"stf26":{"saved":53.9,"cost":6.1,"no_effect":34.0,"n":347}},"custom":{"fac26":{"yes":20.5,"interested":35.8,"not_interested":33.1,"n":254},"stf26":{"yes":14.5,"interested":36.0,"not_interested":38.4,"n":344}},"stu":{"stu25_policy":{"exc_vgood":41.9,"poor":9.7,"n":310},"stu26_policy":{"exc_vgood":33.5,"poor":10.1,"n":917},"stu25_workshop":{"likely":41.1,"n":304},"stu26_workshop":{"likely":41.6,"n":918},"rank_top2":{"training":34.3,"guidelines":60.4,"paid_tools":23.2,"peer":8.6,"badges":5.3,"faculty_demo":22.0,"syllabus_guidelines":46.2},"rank_mean":{"training":3.51,"guidelines":2.53,"paid_tools":4.11,"peer":4.85,"badges":5.45,"faculty_demo":4.16,"syllabus_guidelines":3.37},"rank_n":871},"tools":{"stu26":{"ChatGPT":63.1,"Gemini":33.8,"Claude":23.9,"Copilot":23.6,"BoodleBox":1.1,"NotebookLM":8.0,"None":17.2,"n":914},"fac26":{"ChatGPT":55.2,"Gemini":34.5,"Claude":32.5,"Copilot":21.8,"BoodleBox":18.7,"NotebookLM":10.3,"None":14.7,"n":252},"stf26":{"ChatGPT":65.6,"Gemini":26.1,"Claude":23.4,"Copilot":44.7,"BoodleBox":14.8,"NotebookLM":7.2,"n":291}},"requests":{"fac26":{"guidelines":47.4,"tools":46.2,"discipline":44.9,"training":43.3,"flc":32.8,"peer":27.9,"none":14.6,"n":247},"stf26":{"guidelines":55.8,"tools":54.7,"training":51.5,"consult":36.0,"time":34.5,"peer":28.7,"recognition":23.1,"none":18.7,"n":342},"stf25":{"training":66.4,"tools":59.4,"guidelines":54.2,"time":50.2,"consult":39.9,"peer":31.4,"recognition":29.9,"none":11.8,"n":271}},"challenges":{"stf25":{"training":60.9,"time":54.7,"uncertain":35.3,"access":32.6,"no_need":20.2,"n":258},"stf26":{"training":43.0,"time":46.1,"uncertain":32.2,"access":30.7,"no_need":26.6,"n":323}},"staff_uses":{"stf25":{"drafting":62.9,"research":50.7,"brainstorm":48.5,"data":22.4,"decision":14.3,"automate":11.0,"none":20.2,"n":272},"stf26":{"drafting":59.7,"research":55.3,"brainstorm":46.7,"data":32.9,"decision":23.3,"automate":10.7,"none":18.2,"n":347}},"stu_policy":{"2025":30.0,"2026":33.5,"n25":310,"n26":917}};
+(function(){
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const f1=v=>(v==null?"–":v.toFixed(1)+"%");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const G={stu:"Students",fac:"Faculty",stf:"Staff"};
+$$("[data-n]").forEach(el=>{el.textContent=DATA.n[el.dataset.n].toLocaleString("en-US")});
+
+/* ---------- Predictions ---------- */
+const PRED={
+ "p-use":{q:"In 2026, what share of St. Thomas staff used generative AI for work at least once a week?",a:DATA.freq.stf26.weekly_plus,note:"Up from 50.5% in 2025. Faculty: 58.7%. Students: 50.3%.",short:"Staff using AI weekly or more"},
+ "p-ct":{q:"What share of staff are concerned or very concerned that AI could weaken critical thinking skills?",a:DATA.concern.critical_thinking.stf26.pct,note:"Up from 83.7% in 2025. Faculty: 93.7%. Students: 87.0%.",short:"Staff concerned about critical thinking"},
+ "p-train":{q:"What share of faculty agree the university offers adequate training on generative AI tools?",a:DATA.support.training.fac26.pct,note:"In 2025, 62.5% agreed the university offers training; the 2026 item added “adequate.”",short:"Faculty who say training is adequate"},
+ "p-conf":{q:"What share of students feel confident or very confident using AI effectively and responsibly?",a:DATA.confidence.stu26.conf_plus,note:"Staff: 45.6%. Faculty: 43.7%.",short:"Students confident using AI"},
+ "p-guide":{q:"What share of staff chose clearer guidelines on acceptable AI use as a helpful support?",a:DATA.requests.stf26.guidelines,note:"It was the most chosen support for staff, faculty, and students.",short:"Staff asking for clearer guidelines"},
+ "p-time":{q:"What share of staff say generative AI has saved them time on balance?",a:DATA.workload.stf26.saved,note:"6.1% say it cost them time. Faculty: 46.6% saved, 20.2% cost.",short:"Staff saying AI saves time"}
+};
+const ORDER=Object.keys(PRED);
+const KEY="ust-ai-survey-evidence-v1";
+let st={on:true,g:{}};
+try{const s=JSON.parse(localStorage.getItem(KEY)); if(s&&typeof s==="object"){st.on=s.on!==false; st.g=s.g||{};}}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+
+function scaleHTML(g,a){
+  const t=[0,25,50,75,100].map(v=>`<span class="tk" style="left:${v}%">${v}%</span>`).join("");
+  return `<div class="scale" aria-hidden="true">${t}${g!=null?`<span class="gm" style="left:${g}%"></span>`:""}<span class="am" style="left:${a}%"></span></div>`;
+}
+function renderPred(id){
+  const host=$(`[data-pred="${id}"]`), p=PRED[id], g=st.g[id];
+  const answered = g!==undefined;
+  const reveal=$(`[data-reveal="${id}"]`);
+  if(!st.on){ host.innerHTML=""; reveal.hidden=false; return; }
+  if(answered){
+    const diff = g===null?null:Math.round((g-p.a)*10)/10;
+    const say = g===null ? `The answer is <b>${f1(p.a)}</b>. ${esc(p.note)}`
+      : `You guessed <b>${g}%</b>. The answer is <b>${f1(p.a)}</b>, ${Math.abs(diff)<1?"very close":Math.abs(diff).toFixed(1)+" points "+(diff>0?"high":"low")}. ${esc(p.note)}`;
+    host.innerHTML=`<div class="pred"><p class="q">${esc(p.q)}</p><div class="result">${scaleHTML(g,p.a)}<p class="say" role="status">${say}</p></div><button type="button" class="btn quiet" data-redo="${id}" style="margin-top:1rem">Guess again</button></div>`;
+    reveal.hidden=false;
+  } else {
+    host.innerHTML=`<div class="pred"><p class="q" id="q-${id}">${esc(p.q)}</p>
+      <div class="row"><label for="in-${id}">Your guess</label><input type="range" id="in-${id}" min="0" max="100" step="1" value="50" aria-describedby="q-${id}"><output for="in-${id}" id="out-${id}">50%</output></div>
+      <div class="btns"><button type="button" class="btn" data-lock="${id}">Lock in my guess</button><button type="button" class="btn quiet" data-skip="${id}">Show the answer</button></div></div>`;
+    const inp=$(`#in-${id}`), out=$(`#out-${id}`);
+    inp.addEventListener("input",()=>{out.textContent=inp.value+"%"; inp.setAttribute("aria-valuetext",inp.value+" percent")});
+    reveal.hidden=true;
+  }
+}
+function lock(id,val){
+  st.g[id]=val; save(); renderPred(id); renderSummary(); count();
+  const r=$(`[data-pred="${id}"] .say`); if(r) r.focus?.();
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  if(b.dataset.lock){ lock(b.dataset.lock, +$(`#in-${b.dataset.lock}`).value); }
+  else if(b.dataset.skip){ lock(b.dataset.skip, null); }
+  else if(b.dataset.redo){ delete st.g[b.dataset.redo]; save(); renderPred(b.dataset.redo); renderSummary(); count(); $(`#in-${b.dataset.redo}`)?.focus(); }
+});
+function count(){ const n=ORDER.filter(k=>st.g[k]!==undefined).length; $("#pcount").textContent=st.on?`${n}/${ORDER.length}`:""; }
+const tg=$("#predToggle");
+function applyToggle(){ tg.setAttribute("aria-pressed",String(st.on)); ORDER.forEach(renderPred); count(); }
+tg.addEventListener("click",()=>{st.on=!st.on; save(); applyToggle();});
+function renderSummary(){
+  const rows=ORDER.filter(k=>typeof st.g[k]==="number");
+  const tb=$("#g-table tbody");
+  tb.innerHTML=ORDER.map(k=>{const g=st.g[k],p=PRED[k];
+    const d=typeof g==="number"?(g-p.a):null;
+    return `<tr><td>${esc(p.short)}</td><td class="r">${typeof g==="number"?g+"%":(g===null?"Skipped":"Not yet")}</td><td class="r">${typeof g==="number"||g===null?f1(p.a):"Hidden"}</td><td class="r diff">${d==null?"–":(d>0?"+":"")+d.toFixed(1)}</td></tr>`}).join("");
+  if(rows.length){ const mae=rows.reduce((s,k)=>s+Math.abs(st.g[k]-PRED[k].a),0)/rows.length;
+    $("#g-summary").textContent=`You made ${rows.length} of ${ORDER.length} guesses. On average you were ${mae.toFixed(1)} points from the survey result.`; }
+  else $("#g-summary").textContent="Make a guess in any section and it appears here. Guesses stay in this browser only.";
+}
+$("#g-reset").addEventListener("click",()=>{st.g={}; save(); applyToggle(); renderSummary();});
+
+/* ---------- Charts ---------- */
+const axis=()=>`<div class="axis" aria-hidden="true"><span></span><div class="sc">${[0,25,50,75,100].map(v=>`<span style="left:${v}%">${v}</span>`).join("")}</div><span></span></div>`;
+function dbRow(lab,a,b,sig,sub){
+  const lo=Math.min(a??b,b), hi=Math.max(a??b,b);
+  const vals = a==null?`<b>${f1(b)}</b>`:`${f1(a)} → <b>${f1(b)}</b>${sig?'<span class="sig" aria-hidden="true">*</span>':''}`;
+  const sr = a==null?`${lab}: ${f1(b)} in 2026.`:`${lab}: ${f1(a)} in 2025, ${f1(b)} in 2026${sig?", a statistically significant change":""}.`;
+  return `<div class="lab">${esc(lab)}${sub?`<small>${esc(sub)}</small>`:""}</div>
+   <div class="trk" aria-hidden="true">${a!=null?`<span class="ln" style="left:${lo}%;width:${hi-lo}%"></span><span class="m a" style="left:${a}%"></span>`:""}<span class="m b" style="left:${b}%"></span></div>
+   <div class="vals"><span aria-hidden="true">${vals}</span><span class="sr-only">${esc(sr)}</span></div>`;
+}
+const sigf=p=>p!=null&&p<.05;
+/* use */
+const F=DATA.freq;
+$("#ch-use").innerHTML=`<div class="db">${dbRow("Staff",F.stf25.weekly_plus,F.stf26.weekly_plus,sigf(DATA.freq_p.stf),`n = ${F.stf25.n} / ${F.stf26.n}`)}${dbRow("Faculty",F.fac25_any.weekly_plus,F.fac26.weekly_plus,sigf(DATA.freq_p.fac),`n = ${F.fac25_any.n} / ${F.fac26.n}`)}${dbRow("Students",F.stu25.weekly_plus,F.stu26.weekly_plus,sigf(DATA.freq_p.stu),`n = ${F.stu25.n} / ${F.stu26.n}`)}</div>${axis()}`;
+const lvl=[["daily","Daily"],["weekly","Weekly"],["monthly","Monthly"],["rarely","Less than monthly"],["never","Never"]];
+$("#tb-use").innerHTML=`<table><thead><tr><th scope="col">Group and year</th>${lvl.map(l=>`<th scope="col" class="r">${l[1]}</th>`).join("")}<th scope="col" class="r">n</th></tr></thead><tbody>${[["stu","Students"],["fac","Faculty"],["stf","Staff"]].flatMap(([g,n])=>["25","26"].map(y=>{const d=F[g+y];return `<tr><th scope="row">${n} 20${y}${g==="fac"&&y==="25"?" (teaching)":""}</th>${lvl.map(l=>`<td class="r">${g==="fac"&&y==="25"&&l[0]==="rarely"?"Not asked":f1(d.dist[l[0]])}</td>`).join("")}<td class="r">${d.n}</td></tr>`})).join("")}</tbody></table>`;
+/* roles */
+const RL=DATA.staff_roles, rk=Object.keys(RL).filter(k=>RL[k]["2026"]&&RL[k]["2026"].n>=20).sort((a,b)=>RL[b]["2026"].pct-RL[a]["2026"].pct);
+const short={"Information Technology Services/Technical Staff":"IT and technical staff","Administrative/Operational Staff":"Administrative and operational staff","Student Support Services Staff":"Student support services staff","Other":"Other roles"};
+$("#ch-roles").innerHTML=`<div class="db">${rk.map(k=>{const a=RL[k]["2025"]&&RL[k]["2025"].n>=20?RL[k]["2025"].pct:null; return dbRow(short[k]||k,a,RL[k]["2026"].pct,false,`n = ${a!=null?RL[k]["2025"].n+" / ":""}${RL[k]["2026"].n}`)}).join("")}</div>${axis()}`;
+/* concerns */
+const CL={critical_thinking:"Decline in critical thinking",writing:"Decline in writing skills",reading:"Decline in reading skills",misinformation:"Misinformation",dishonesty:"Academic dishonesty",privacy:"Data privacy",originality:"Less originality and creativity",ip:"Intellectual property",bias:"Bias in AI output",energy:"Energy and environmental impact",jobs:"Job displacement",policies:"Lack of clear policies"};
+function drawCon(g){
+  const items=Object.keys(CL).filter(k=>DATA.concern[k][g+"26"]).sort((a,b)=>DATA.concern[b][g+"26"].pct-DATA.concern[a][g+"26"].pct);
+  $("#con-title").textContent=`${G[g]}: concerned or very concerned`;
+  $("#ch-con").innerHTML=`<div class="db">${items.map(k=>{const c=DATA.concern[k]; return dbRow(CL[k], c[g+"25"]?c[g+"25"].pct:null, c[g+"26"].pct, sigf(c[g+"_p"]))}).join("")}</div>${axis()}`;
+  $$(".seg [data-g]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.g===g)));
+}
+$$(".seg [data-g]").forEach(b=>b.addEventListener("click",()=>drawCon(b.dataset.g)));
+drawCon("stf");
+$("#tb-con").innerHTML=`<table><thead><tr><th scope="col">Concern</th>${["stu","fac","stf"].flatMap(g=>["25","26"].map(y=>`<th scope="col" class="r">${G[g]} 20${y}</th>`)).join("")}</tr></thead><tbody>${Object.keys(CL).map(k=>`<tr><th scope="row">${CL[k]}</th>${["stu","fac","stf"].flatMap(g=>["25","26"].map(y=>`<td class="r">${DATA.concern[k][g+y]?f1(DATA.concern[k][g+y].pct):"Not asked"}</td>`)).join("")}</tr>`).join("")}</tbody></table>`;
+/* support */
+const SL={clear_guidelines:"Provides clear guidelines",training:"Offers training (2026: adequate training)",tech_support:"Provides technical support",pays_subscriptions:"Pays for AI subscriptions",incentivizes:"Incentivizes engaging with AI",updates_policies:"Regularly updates AI policies",discipline_support:"College gives discipline-specific support"};
+function drawSup(g){
+  const items=Object.keys(SL).filter(k=>DATA.support[k][g+"26"]);
+  $("#sup-title").textContent=`${G[g]}: agree or strongly agree that the university…`;
+  $("#ch-sup").innerHTML=`<div class="db">${items.map(k=>{const s=DATA.support[k]; return dbRow(SL[k], s[g+"25"]?s[g+"25"].pct:null, s[g+"26"].pct, sigf(s[g+"_p"]))}).join("")}</div>${axis()}`;
+  $$(".seg [data-s]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.s===g)));
+}
+$$(".seg [data-s]").forEach(b=>b.addEventListener("click",()=>drawSup(b.dataset.s)));
+drawSup("fac");
+const CH=DATA.challenges, CHL={time:"Not enough time to learn or experiment",training:"Lack of training or knowledge",uncertain:"Unsure of AI’s benefits for my tasks",access:"Limited access to appropriate tools",no_need:"No significant need for AI in my role"};
+$("#n-ch25").textContent=CH.stf25.n; $("#n-ch26").textContent=CH.stf26.n;
+$("#ch-chal").innerHTML=`<div class="db">${Object.keys(CHL).map(k=>dbRow(CHL[k],CH.stf25[k],CH.stf26[k],false)).join("")}</div>${axis()}<p class="note">Changes in lack of training (−17.9 points) and time (−8.6 points) are statistically significant.</p>`;
+const AW=DATA.aware;
+$("#ch-aware").innerHTML=`<div class="db">${dbRow("Faculty",AW.fac25.very_extreme,AW.fac26.very_extreme,sigf(DATA.aware_p.fac),`n = ${AW.fac25.n} / ${AW.fac26.n}`)}${dbRow("Staff",AW.stf25.very_extreme,AW.stf26.very_extreme,sigf(DATA.aware_p.stf),`n = ${AW.stf25.n} / ${AW.stf26.n}`)}</div>${axis()}`;
+/* side by side */
+const SIDE=[
+ ["Use AI weekly or more",{stu:F.stu26.weekly_plus,fac:F.fac26.weekly_plus,stf:F.stf26.weekly_plus}],
+ ["Feel confident using AI effectively and responsibly",{stu:DATA.confidence.stu26.conf_plus,fac:DATA.confidence.fac26.conf_plus,stf:DATA.confidence.stf26.conf_plus}],
+ ["Agree AI is an appropriate tool for their work",{stu:DATA.agree.appropriate_tool.stu26.pct,fac:DATA.agree.appropriate_tool.fac26.pct,stf:DATA.agree.appropriate_tool.stf26.pct}],
+ ["Concerned about a decline in critical thinking",{stu:DATA.concern.critical_thinking.stu26.pct,fac:DATA.concern.critical_thinking.fac26.pct,stf:DATA.concern.critical_thinking.stf26.pct}],
+ ["Agree the university provides clear guidelines",{stu:DATA.support.clear_guidelines.stu26.pct,fac:DATA.support.clear_guidelines.fac26.pct,stf:DATA.support.clear_guidelines.stf26.pct}]
+];
+$("#ch-side").innerHTML=SIDE.map(([m,v])=>`<div><p class="meas">${esc(m)}</p><div class="rows">${["stu","fac","stf"].map(g=>`<span>${G[g]}</span><div class="trk" aria-hidden="true"><span class="bar-f" style="width:${v[g]}%"></span></div><span class="v">${f1(v[g])}</span>`).join("")}</div></div>`).join("");
+$("#tb-side").innerHTML=`<table><thead><tr><th scope="col">Measure</th>${["stu","fac","stf"].map(g=>`<th scope="col" class="r">${G[g]}</th>`).join("")}</tr></thead><tbody>${SIDE.map(([m,v])=>`<tr><th scope="row">${esc(m)}</th>${["stu","fac","stf"].map(g=>`<td class="r">${f1(v[g])}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+/* asks */
+const R=DATA.requests, T2=DATA.stu.rank_top2;
+$("#n-rank").textContent=DATA.stu.rank_n; $("#n-rf").textContent=R.fac26.n; $("#n-rs").textContent=R.stf26.n;
+const list=(title,arr,sub)=>`<div><h3>${title}</h3><ol>${arr.map(([l,v])=>`<li><div class="l"><span>${esc(l)}</span><span class="v">${f1(v)}</span></div><div class="b" aria-hidden="true"><i style="width:${v}%"></i></div></li>`).join("")}</ol><p class="sub">${sub}</p></div>`;
+$("#ch-asks").innerHTML=
+ list("Students",[["Clearer guidelines on acceptable use",T2.guidelines],["AI guidelines in course syllabi",T2.syllabus_guidelines],["Training workshops",T2.training],["Access to paid AI tools",T2.paid_tools],["Faculty demonstrations",T2.faculty_demo]],"Ranked first or second")+
+ list("Faculty",[["Clearer guidelines on acceptable use",R.fac26.guidelines],["Access to paid AI tools",R.fac26.tools],["Discipline-specific guidance",R.fac26.discipline],["Training workshops",R.fac26.training],["Faculty learning communities",R.fac26.flc]],"Selected")+
+ list("Staff",[["Clearer guidelines on acceptable use",R.stf26.guidelines],["Access to paid AI tools",R.stf26.tools],["Training workshops",R.stf26.training],["IT support or expert consultation",R.stf26.consult],["Time or incentives to experiment",R.stf26.time]],"Selected");
+/* time */
+const W=DATA.workload;
+const twoRow=(lab,v)=>`<div class="lab">${lab}</div><div class="trk" aria-hidden="true"><span class="bar-f" style="width:${v}%"></span></div><div class="vals">${f1(v)}</div>`;
+$("#ch-time").innerHTML=`<div class="db">${twoRow("Staff: saved time",W.stf26.saved)}${twoRow("Staff: no net effect",W.stf26.no_effect)}${twoRow("Staff: cost time",W.stf26.cost)}${twoRow("Faculty: saved time",W.fac26.saved)}${twoRow("Faculty: no net effect",W.fac26.no_effect)}${twoRow("Faculty: cost time",W.fac26.cost)}</div>${axis()}`;
+const B=DATA.custom;
+$("#ch-build").innerHTML=`<div class="db">${twoRow("Faculty: built one",B.fac26.yes)}${twoRow("Faculty: interested",B.fac26.interested)}${twoRow("Staff: built one",B.stf26.yes)}${twoRow("Staff: interested",B.stf26.interested)}</div>${axis()}`;
+const TL=DATA.tools, tk=["ChatGPT","Gemini","Claude","Copilot","BoodleBox","NotebookLM"];
+$("#tb-tools").innerHTML=`<table><thead><tr><th scope="col">Tool</th>${["stu","fac","stf"].map(g=>`<th scope="col" class="r">${G[g]}</th>`).join("")}</tr></thead><tbody>${tk.map(t=>`<tr><th scope="row">${t==="Gemini"?"Google Gemini":t==="Copilot"?"Microsoft Copilot":t}</th>${["stu","fac","stf"].map(g=>`<td class="r">${f1(TL[g+"26"][t])}</td>`).join("")}</tr>`).join("")}<tr><th scope="row">Respondents</th>${["stu","fac","stf"].map(g=>`<td class="r">${TL[g+"26"].n}</td>`).join("")}</tr></tbody></table>`;
+
+applyToggle(); renderSummary();
+const h=location.hash.slice(1); if(h&&document.getElementById(h)) setTimeout(()=>document.getElementById(h).scrollIntoView(),0);
+})();
+</script>
+
+</body>
+</html>
